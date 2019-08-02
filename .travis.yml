@@ -24,7 +24,7 @@ jobs:
     - golint -set_exit_status pkg/... cmd/...
   - name: tests
     before_script:
-    - createdb ulms-meta-test -U postgres
+    - createdb ulms-test -U postgres
     - go get github.com/golang/dep/cmd/dep
     - dep ensure -v
     script:
