@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/netology-group/ulms-meta/pkg/app"
+	"github.com/netology-group/ulms-go/pkg/app"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"gopkg.in/yaml.v2"
