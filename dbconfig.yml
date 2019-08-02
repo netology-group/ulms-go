@@ -1,0 +1,6 @@
+# DB config for sql-migrate
+development:
+  dialect: postgres
+  datasource: dbname=ulms sslmode=disable user=postgres
+  dir: migrations
+  table: migrations

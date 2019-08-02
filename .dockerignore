@@ -1,0 +1,8 @@
+*
+!pkg/
+!cmd/
+!configs/
+!api/
+!migrations/
+!Gopkg.lock
+!Gopkg.toml
