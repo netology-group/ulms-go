@@ -18,7 +18,11 @@ func init() {
 	once = sync.Once{}
 }
 
-// TestSuite is structure used for tests
+// TestSuite is a test suite
+// Usage example:
+//   func TestHandlers(t *testing.T) {
+//	     suite.Run(t, new(TestSuite))
+//   }
 type TestSuite struct {
 	suite.Suite
 	app        *App
