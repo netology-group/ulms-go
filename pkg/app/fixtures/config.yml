@@ -1,0 +1,9 @@
+db:
+  driver: pgx
+  source: dbname=ulms-test sslmode=disable user=postgres # https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+  max-open-conns: 300
+  max-idle-conns: 300
+
+auth: fixtures/auth.toml
+
+cors: {}

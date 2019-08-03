@@ -1,0 +1,55 @@
+# Specification: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md
+# Online editor: http://editor.swagger.io
+
+swagger: '2.0'
+
+info:
+  version: '1.0.0'
+  title: Awesome API
+
+basePath: /api/v1
+
+securityDefinitions:
+  BearerToken:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: "This token value must be in format: `Bearer {token}`"
+
+security:
+  - BearerToken: []
+
+produces:
+  - application/json
+
+consumes:
+  - application/json
+
+responses:
+  ValidationError:
+    description: Request validation error
+    schema:
+      $ref: "#/definitions/Error"
+  AuthnError:
+    description: Authentication error
+    schema:
+      $ref: "#/definitions/Error"
+  AuthzError:
+    description: Authorization error
+    schema:
+      $ref: "#/definitions/Error"
+  NotFoundError:
+    description: Entity not found or owned by another tetant or was deleted
+    schema:
+      $ref: "#/definitions/Error"
+  DataConflictError:
+    description: Data conflict
+    schema:
+      $ref: "#/definitions/Error"
+
+definitions:
+  Error:
+    description: Error
+    type: string
+
+paths: {}
