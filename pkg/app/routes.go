@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	sentryhttp "github.com/getsentry/sentry-go/http"
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/gorilla/handlers"
 	auth "github.com/netology-group/ulms-auth-go"
@@ -11,6 +12,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func (app *App) setRoutes() {
@@ -19,6 +21,11 @@ func (app *App) setRoutes() {
 	app.router.Handle(`/metrics`, promhttp.Handler())
 
 	api := app.router.PathPrefix(`/api/v1/{audience:[\w\-\.]+}`).Subrouter()
+	api.Use(sentryhttp.New(sentryhttp.Options{
+		Repanic:         true,
+		WaitForDelivery: true,
+		Timeout:         1 * time.Second,
+	}).Handle)
 	api.Use(handlers.RecoveryHandler(
 		handlers.PrintRecoveryStack(true),
 		handlers.RecoveryLogger(&recoveryLogger{}),

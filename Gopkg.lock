@@ -42,6 +42,17 @@
   version = "v3.2.0"
 
 [[projects]]
+  digest = "1:bd27bebfccb958fe28399c9fc7fc8f0c0a8545c2ee57e67fb8371e6f44ca4d3f"
+  name = "github.com/getsentry/sentry-go"
+  packages = [
+    ".",
+    "http",
+  ]
+  pruneopts = "UT"
+  revision = "510f01e3c1e95d434331b518fdc62b2adaf5cff8"
+  version = "v0.2.1"
+
+[[projects]]
   digest = "1:c116114869f44c711fa5baf9e019fa327101c82ddc4dcc1de84db1f6c43a2d36"
   name = "github.com/go-ozzo/ozzo-validation"
   packages = ["."]
@@ -295,6 +306,8 @@
     "github.com/BurntSushi/toml",
     "github.com/DATA-DOG/go-txdb",
     "github.com/dgrijalva/jwt-go",
+    "github.com/getsentry/sentry-go",
+    "github.com/getsentry/sentry-go/http",
     "github.com/go-ozzo/ozzo-validation",
     "github.com/gorilla/handlers",
     "github.com/gorilla/mux",

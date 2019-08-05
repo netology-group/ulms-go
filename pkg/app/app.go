@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"github.com/BurntSushi/toml"
+	"github.com/getsentry/sentry-go"
 	"github.com/gorilla/mux"
 	_ "github.com/jackc/pgx/stdlib" // PostgreSQL driver
 	"github.com/jmoiron/sqlx"
@@ -32,6 +33,9 @@ func New(configFile string) *App {
 	config, err := LoadConfig(configFile)
 	if err != nil {
 		logrus.WithError(err).Panic("can't load config")
+	}
+	if err := sentry.Init(config.Sentry); err != nil {
+		logrus.Errorf("Sentry initialization failed: %v", err)
 	}
 	authConfig, err := loadAuthConfig(config.Auth)
 	if err != nil {
@@ -89,16 +93,17 @@ func (app *App) wait(ctx context.Context) error {
 // Config stores App configuration parameters
 type Config struct {
 	Auth string `json:"auth"`
-	Db   *struct {
+	Db   struct {
 		Driver       string `yaml:"driver"`
 		DataSource   string `yaml:"source"`
 		MaxOpenConns int    `yaml:"max-open-conns"`
 		MaxIdleConns int    `yaml:"max-idle-conns"`
 	}
-	CORS *struct {
+	CORS struct {
 		AllowedOrigins []string `yaml:"allowed_origins"`
 		MaxAge         int      `yaml:"max_age"`
 	} `yaml:"cors"`
+	Sentry sentry.ClientOptions `yaml:"sentry"`
 }
 
 // LoadConfig reads configuration parameters from the specified file

@@ -1,6 +1,7 @@
 db:
   driver: pgx
-  source: dbname=ulms sslmode=disable user=postgres # https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+  # https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+  source: dbname=ulms sslmode=disable user=postgres
   max-open-conns: 300
   max-idle-conns: 300
 
@@ -10,3 +11,6 @@ cors:
   allowed_hosts:
     - "*"
   max_age: 600
+
+# https://docs.sentry.io/platforms/go/config/
+sentry: {}
