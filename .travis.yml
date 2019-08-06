@@ -4,6 +4,7 @@ go:
 branches:
   only:
   - master
+  - /^\d+\.\d+(\.\d+)?(-\S*)?$/ # release tags, e.g. "1.2.3-abc"
 before_install:
   - sudo apt-get update
   - sudo apt-get --yes remove postgresql\*
