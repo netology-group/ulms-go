@@ -21,15 +21,15 @@ func (app *App) setRoutes() {
 	app.router.Handle(`/metrics`, promhttp.Handler())
 
 	api := app.router.PathPrefix(`/api/v1/{audience:[\w\-\.]+}`).Subrouter()
+	api.Use(handlers.RecoveryHandler(
+		handlers.PrintRecoveryStack(true),
+		handlers.RecoveryLogger(&recoveryLogger{}),
+	))
 	api.Use(sentryhttp.New(sentryhttp.Options{
 		Repanic:         true,
 		WaitForDelivery: true,
 		Timeout:         1 * time.Second,
 	}).Handle)
-	api.Use(handlers.RecoveryHandler(
-		handlers.PrintRecoveryStack(true),
-		handlers.RecoveryLogger(&recoveryLogger{}),
-	))
 	api.Use(bodyCloseMiddleware)
 	api.Use(handlers.CORS(app.corsOptions()...))
 	api.Use(app.auth.TokenValidationMiddleware())
